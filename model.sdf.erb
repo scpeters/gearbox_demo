@@ -45,7 +45,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <box>
-            <size>1 1 1</size>
+            <size><%= a_to_s(boxes["input_body"][:size]) %></size>
           </box>
         </geometry>
         <material>
@@ -58,7 +58,7 @@
       <collision name='collision'>
         <geometry>
           <box>
-            <size>1 1 1</size>
+            <size><%= a_to_s(boxes["input_body"][:size]) %></size>
           </box>
         </geometry>
       </collision>
@@ -79,7 +79,7 @@
       <visual name='visual'>
         <geometry>
           <box>
-            <size>1 1 1</size>
+            <size><%= a_to_s(boxes["output_body"][:size]) %></size>
           </box>
         </geometry>
         <material>
@@ -92,7 +92,7 @@
       <collision name='collision'>
         <geometry>
           <box>
-            <size>1 1 1</size>
+            <size><%= a_to_s(boxes["output_body"][:size]) %></size>
           </box>
         </geometry>
       </collision>
