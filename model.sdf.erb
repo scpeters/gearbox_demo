@@ -29,6 +29,7 @@
 
   joint_axis = Vector[1, 0, 0]
   joint_damping = 1
+  gear_ratio = -0.1
 %>
 <sdf version='1.6'>
   <model name='gearbox_demo'>
@@ -116,7 +117,7 @@
     <joint name='output_reduction' type='gearbox'>
       <parent>motor_shaft</parent>
       <child>output_body</child>
-      <gearbox_ratio>-0.1</gearbox_ratio>
+      <gearbox_ratio><%= gear_ratio %></gearbox_ratio>
       <gearbox_reference_body>input_body</gearbox_reference_body>
       <axis>
         <xyz><%= a_to_s(joint_axis) %></xyz>
