@@ -1,17 +1,40 @@
 <?xml version='1.0'?>
+<%
+  # Parameterized gearbox demo
+  require "matrix"
+  def a_to_s(v)
+    Array(v).join(" ")
+  end
+
+  # default density of Aluminum in kg/m^3
+  def box_inertia(dx, dy, dz, density=2700)
+    box = {}
+    box[:size]   = Vector[dx, dy, dz]
+    box[:volume] = dx * dy * dz
+    box[:mass] = density * box[:volume]
+    box[:ixx]  = box[:mass]/12.0 * (dy**2 + dz**2)
+    box[:iyy]  = box[:mass]/12.0 * (dz**2 + dx**2)
+    box[:izz]  = box[:mass]/12.0 * (dx**2 + dy**2)
+    box
+  end
+  boxes = {}
+
+  boxes["input_body"] = box_inertia(1, 1, 1, density=1)
+  boxes["output_body"] = box_inertia(1, 1, 1, density=1)
+%>
 <sdf version='1.6'>
   <model name='gearbox_demo'>
     <pose>0 0 1.5 0 <%= Math::PI / 2 %> 0</pose>
     <link name='input_body'>
       <inertial>
-        <mass>1</mass>
+        <mass><%= boxes["input_body"][:mass] %></mass>
         <inertia>
-          <ixx>0.166667</ixx>
+          <ixx><%= boxes["input_body"][:ixx] %></ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.166667</iyy>
+          <iyy><%= boxes["input_body"][:iyy] %></iyy>
           <iyz>0</iyz>
-          <izz>0.166667</izz>
+          <izz><%= boxes["input_body"][:izz] %></izz>
         </inertia>
       </inertial>
       <pose frame=''>1 0 0 0 -0 0</pose>
@@ -77,14 +100,14 @@
     </link>
     <link name='output_body'>
       <inertial>
-        <mass>1</mass>
+        <mass><%= boxes["output_body"][:mass] %></mass>
         <inertia>
-          <ixx>0.166667</ixx>
+          <ixx><%= boxes["output_body"][:ixx] %></ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.166667</iyy>
+          <iyy><%= boxes["output_body"][:iyy] %></iyy>
           <iyz>0</iyz>
-          <izz>0.166667</izz>
+          <izz><%= boxes["output_body"][:izz] %></izz>
         </inertia>
       </inertial>
       <pose frame=''>-1 0 0 0 -0 0</pose>
