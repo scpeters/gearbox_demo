@@ -26,6 +26,8 @@
   boxes["input_body"][:pose] = Vector[1, 0, 0, 0, 0, 0]
   boxes["motor_shaft"][:pose] = Vector[0, 0, 0, 0, 0, 0]
   boxes["output_body"][:pose] = Vector[-1, 0, 0, 0, 0, 0]
+
+  joint_damping = 1
 %>
 <sdf version='1.6'>
   <model name='gearbox_demo'>
@@ -79,7 +81,7 @@
         <dynamics>
           <spring_reference>0</spring_reference>
           <spring_stiffness>0</spring_stiffness>
-          <damping>1</damping>
+          <damping><%= joint_damping %></damping>
           <friction>0</friction>
         </dynamics>
       </axis>
@@ -106,7 +108,7 @@
         <dynamics>
           <spring_reference>0</spring_reference>
           <spring_stiffness>0</spring_stiffness>
-          <damping>1</damping>
+          <damping><%= joint_damping %></damping>
           <friction>0</friction>
         </dynamics>
     </joint>
