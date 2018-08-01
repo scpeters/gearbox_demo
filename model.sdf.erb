@@ -28,24 +28,27 @@
 <sdf version='1.6'>
   <model name='gearbox_demo'>
     <pose>0 0 1.5 0 <%= Math::PI / 2 %> 0</pose>
-    <link name='input_body'>
+<%
+  boxes.keys.each do |link_name|
+%>
+    <link name='<%= link_name %>'>
       <inertial>
-        <mass><%= boxes["input_body"][:mass] %></mass>
+        <mass><%= boxes[link_name][:mass] %></mass>
         <inertia>
-          <ixx><%= boxes["input_body"][:ixx] %></ixx>
+          <ixx><%= boxes[link_name][:ixx] %></ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy><%= boxes["input_body"][:iyy] %></iyy>
+          <iyy><%= boxes[link_name][:iyy] %></iyy>
           <iyz>0</iyz>
-          <izz><%= boxes["input_body"][:izz] %></izz>
+          <izz><%= boxes[link_name][:izz] %></izz>
         </inertia>
       </inertial>
-      <pose frame=''>1 0 0 0 -0 0</pose>
+      <pose frame=''><%= a_to_s(boxes[link_name][:pose]) %></pose>
       <visual name='visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <box>
-            <size><%= a_to_s(boxes["input_body"][:size]) %></size>
+            <size><%= a_to_s(boxes[link_name][:size]) %></size>
           </box>
         </geometry>
         <material>
@@ -58,45 +61,14 @@
       <collision name='collision'>
         <geometry>
           <box>
-            <size><%= a_to_s(boxes["input_body"][:size]) %></size>
+            <size><%= a_to_s(boxes[link_name][:size]) %></size>
           </box>
         </geometry>
       </collision>
     </link>
-    <link name='output_body'>
-      <inertial>
-        <mass><%= boxes["output_body"][:mass] %></mass>
-        <inertia>
-          <ixx><%= boxes["output_body"][:ixx] %></ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy><%= boxes["output_body"][:iyy] %></iyy>
-          <iyz>0</iyz>
-          <izz><%= boxes["output_body"][:izz] %></izz>
-        </inertia>
-      </inertial>
-      <pose frame=''>-1 0 0 0 -0 0</pose>
-      <visual name='visual'>
-        <geometry>
-          <box>
-            <size><%= a_to_s(boxes["output_body"][:size]) %></size>
-          </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
-          </script>
-        </material>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <box>
-            <size><%= a_to_s(boxes["output_body"][:size]) %></size>
-          </box>
-        </geometry>
-      </collision>
-    </link>
+<%
+  end
+%>
     <link name='motor_shaft'>
       <inertial>
         <mass>0.151642</mass>
