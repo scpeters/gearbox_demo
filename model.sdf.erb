@@ -21,8 +21,10 @@
 
   boxes["input_body"] = box_inertia(1, 1, 1, density=1)
   boxes["output_body"] = box_inertia(1, 1, 1, density=1)
+  boxes["motor_shaft"] = box_inertia(0.15, 1, 1, density=1)
 
   boxes["input_body"][:pose] = Vector[1, 0, 0, 0, 0, 0]
+  boxes["motor_shaft"][:pose] = Vector[0, 0, 0, 0, 0, 0]
   boxes["output_body"][:pose] = Vector[-1, 0, 0, 0, 0, 0]
 %>
 <sdf version='1.6'>
@@ -68,44 +70,6 @@
 <%
   end
 %>
-    <link name='motor_shaft'>
-      <inertial>
-        <mass>0.151642</mass>
-        <inertia>
-          <ixx>0.0189553</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.00976825</iyy>
-          <iyz>0</iyz>
-          <izz>0.00976825</izz>
-        </inertia>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-      </inertial>
-      <visual name='visual'>
-        <pose frame=''>0 0 0 0 <%= Math::PI / 2 %> 0</pose>
-        <geometry>
-          <cylinder>
-            <radius>0.5</radius>
-            <length>0.151644</length>
-          </cylinder>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
-          </script>
-        </material>
-      </visual>
-      <collision name='collision'>
-        <pose frame=''>0 0 0 0 <%= Math::PI / 2 %> 0</pose>
-        <geometry>
-          <cylinder>
-            <radius>0.5</radius>
-            <length>0.151644</length>
-          </cylinder>
-        </geometry>
-      </collision>
-    </link>
     <joint name='input_joint' type='revolute'>
       <parent>motor_shaft</parent>
       <child>input_body</child>
