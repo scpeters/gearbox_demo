@@ -75,8 +75,8 @@
   end
 %>
     <joint name='input_joint' type='revolute'>
-      <parent>motor_shaft</parent>
-      <child>input_body</child>
+      <parent>input_body</parent>
+      <child>motor_shaft</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <axis>
         <xyz><%= a_to_s(joint_axis) %></xyz>
@@ -101,8 +101,8 @@
       </physics>
     </joint>
     <joint name='output_joint' type='revolute'>
-      <parent>output_body</parent>
-      <child>motor_shaft</child>
+      <parent>motor_shaft</parent>
+      <child>output_body</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <axis>
         <xyz><%= a_to_s(joint_axis) %></xyz>

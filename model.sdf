@@ -105,8 +105,8 @@
       </collision>
     </link>
     <joint name='input_joint' type='revolute'>
-      <parent>motor_shaft</parent>
-      <child>input_body</child>
+      <parent>input_body</parent>
+      <child>motor_shaft</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <axis>
         <xyz>1 0 0</xyz>
@@ -131,8 +131,8 @@
       </physics>
     </joint>
     <joint name='output_joint' type='revolute'>
-      <parent>output_body</parent>
-      <child>motor_shaft</child>
+      <parent>motor_shaft</parent>
+      <child>output_body</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <axis>
         <xyz>1 0 0</xyz>
