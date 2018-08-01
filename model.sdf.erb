@@ -32,6 +32,7 @@
   boxes.keys.each do |link_name|
 %>
     <link name='<%= link_name %>'>
+      <pose frame=''><%= a_to_s(boxes[link_name][:pose]) %></pose>
       <inertial>
         <mass><%= boxes[link_name][:mass] %></mass>
         <inertia>
@@ -43,9 +44,7 @@
           <izz><%= boxes[link_name][:izz] %></izz>
         </inertia>
       </inertial>
-      <pose frame=''><%= a_to_s(boxes[link_name][:pose]) %></pose>
       <visual name='visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <box>
             <size><%= a_to_s(boxes[link_name][:size]) %></size>
