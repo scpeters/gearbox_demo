@@ -1,0 +1,164 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+  <model name='gearbox_demo'>
+    <pose>0 0 1.5 0 1.57 0</pose>
+    <link name='input_body'>
+      <inertial>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.166667</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.166667</iyy>
+          <iyz>0</iyz>
+          <izz>0.166667</izz>
+        </inertia>
+      </inertial>
+      <pose frame=''>1 0 0 0 -0 0</pose>
+      <visual name='visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+    <link name='motor_shaft'>
+      <inertial>
+        <mass>0.151642</mass>
+        <inertia>
+          <ixx>0.00976825</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00976825</iyy>
+          <iyz>0</iyz>
+          <izz>0.0189553</izz>
+        </inertia>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+      </inertial>
+      <pose frame=''>0 0 0 3.14159 1.57079 3.14159</pose>
+      <visual name='visual'>
+        <geometry>
+          <cylinder>
+            <radius>0.5</radius>
+            <length>0.151644</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <cylinder>
+            <radius>0.5</radius>
+            <length>0.151644</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+    <link name='output_body'>
+      <inertial>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.166667</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.166667</iyy>
+          <iyz>0</iyz>
+          <izz>0.166667</izz>
+        </inertia>
+      </inertial>
+      <pose frame=''>-1 0 0 0 -0 0</pose>
+      <visual name='visual'>
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+    <joint name='input_joint' type='revolute'>
+      <parent>motor_shaft</parent>
+      <child>input_body</child>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>1</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+          <suspension>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </suspension>
+        </ode>
+      </physics>
+    </joint>
+    <joint name='output_joint' type='revolute'>
+      <parent>output_body</parent>
+      <child>motor_shaft</child>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+          <damping>1</damping>
+          <friction>0</friction>
+        </dynamics>
+    </joint>
+    <joint name='output_reduction' type='gearbox'>
+      <parent>motor_shaft</parent>
+      <child>output_body</child>
+      <gearbox_ratio>-0.1</gearbox_ratio>
+      <gearbox_reference_body>input_body</gearbox_reference_body>
+      <axis>
+        <xyz>1 0 0</xyz>
+      </axis>
+      <axis2>
+        <xyz>1 0 0</xyz>
+      </axis2>
+    </joint>
+  </model>
+</sdf>
