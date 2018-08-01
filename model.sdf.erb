@@ -21,6 +21,9 @@
 
   boxes["input_body"] = box_inertia(1, 1, 1, density=1)
   boxes["output_body"] = box_inertia(1, 1, 1, density=1)
+
+  boxes["input_body"][:pose] = Vector[1, 0, 0, 0, 0, 0]
+  boxes["output_body"][:pose] = Vector[-1, 0, 0, 0, 0, 0]
 %>
 <sdf version='1.6'>
   <model name='gearbox_demo'>
@@ -40,6 +43,40 @@
       <pose frame=''>1 0 0 0 -0 0</pose>
       <visual name='visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+    <link name='output_body'>
+      <inertial>
+        <mass><%= boxes["output_body"][:mass] %></mass>
+        <inertia>
+          <ixx><%= boxes["output_body"][:ixx] %></ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy><%= boxes["output_body"][:iyy] %></iyy>
+          <iyz>0</iyz>
+          <izz><%= boxes["output_body"][:izz] %></izz>
+        </inertia>
+      </inertial>
+      <pose frame=''>-1 0 0 0 -0 0</pose>
+      <visual name='visual'>
         <geometry>
           <box>
             <size>1 1 1</size>
@@ -95,40 +132,6 @@
             <radius>0.5</radius>
             <length>0.151644</length>
           </cylinder>
-        </geometry>
-      </collision>
-    </link>
-    <link name='output_body'>
-      <inertial>
-        <mass><%= boxes["output_body"][:mass] %></mass>
-        <inertia>
-          <ixx><%= boxes["output_body"][:ixx] %></ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy><%= boxes["output_body"][:iyy] %></iyy>
-          <iyz>0</iyz>
-          <izz><%= boxes["output_body"][:izz] %></izz>
-        </inertia>
-      </inertial>
-      <pose frame=''>-1 0 0 0 -0 0</pose>
-      <visual name='visual'>
-        <geometry>
-          <box>
-            <size>1 1 1</size>
-          </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
-          </script>
-        </material>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <box>
-            <size>1 1 1</size>
-          </box>
         </geometry>
       </collision>
     </link>

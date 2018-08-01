@@ -37,6 +37,40 @@
         </geometry>
       </collision>
     </link>
+    <link name='output_body'>
+      <inertial>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.16666666666666666</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.16666666666666666</iyy>
+          <iyz>0</iyz>
+          <izz>0.16666666666666666</izz>
+        </inertia>
+      </inertial>
+      <pose frame=''>-1 0 0 0 -0 0</pose>
+      <visual name='visual'>
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
     <link name='motor_shaft'>
       <inertial>
         <mass>0.151642</mass>
@@ -72,40 +106,6 @@
             <radius>0.5</radius>
             <length>0.151644</length>
           </cylinder>
-        </geometry>
-      </collision>
-    </link>
-    <link name='output_body'>
-      <inertial>
-        <mass>1</mass>
-        <inertia>
-          <ixx>0.16666666666666666</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.16666666666666666</iyy>
-          <iyz>0</iyz>
-          <izz>0.16666666666666666</izz>
-        </inertia>
-      </inertial>
-      <pose frame=''>-1 0 0 0 -0 0</pose>
-      <visual name='visual'>
-        <geometry>
-          <box>
-            <size>1 1 1</size>
-          </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Grey</name>
-          </script>
-        </material>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <box>
-            <size>1 1 1</size>
-          </box>
         </geometry>
       </collision>
     </link>
