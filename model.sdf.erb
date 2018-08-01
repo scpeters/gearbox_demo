@@ -22,13 +22,16 @@
   boxes["input_body"] = box_inertia(1, 1, 1, density=1)
   boxes["output_body"] = box_inertia(1, 1, 1, density=1)
   boxes["motor_shaft"] = box_inertia(0.15, 1, 1, density=1)
+  boxes["output_shaft"] = box_inertia(0.15, 1, 1, density=1)
 
   boxes["input_body"][:pose] = Vector[1, 0, 0, 0, 0, 0]
   boxes["motor_shaft"][:pose] = Vector[0, 0, 0, 0, 0, 0]
+  boxes["output_shaft"][:pose] = Vector[-0.25, 0, 0, 0, 0, 0]
   boxes["output_body"][:pose] = Vector[-1, 0, 0, 0, 0, 0]
 
   joint_axis = Vector[1, 0, 0]
   joint_damping = 1
+  joint_stiffness = 1
   gear_ratio = -0.1
 %>
 <sdf version='1.6'>
@@ -88,9 +91,9 @@
         </dynamics>
       </axis>
     </joint>
-    <joint name='output_joint' type='revolute'>
+    <joint name='reduction_joint' type='revolute'>
       <parent>motor_shaft</parent>
-      <child>output_body</child>
+      <child>output_shaft</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <axis>
         <xyz><%= a_to_s(joint_axis) %></xyz>
@@ -102,9 +105,23 @@
         </dynamics>
       </axis>
     </joint>
-    <joint name='output_reduction' type='gearbox'>
-      <parent>motor_shaft</parent>
+    <joint name='compliant_joint' type='revolute'>
+      <parent>output_shaft</parent>
       <child>output_body</child>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+      <axis>
+        <xyz><%= a_to_s(joint_axis) %></xyz>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness><%= joint_stiffness %></spring_stiffness>
+          <damping>0</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <joint name='shaft_gearbox' type='gearbox'>
+      <parent>motor_shaft</parent>
+      <child>output_shaft</child>
       <gearbox_ratio><%= gear_ratio %></gearbox_ratio>
       <gearbox_reference_body>input_body</gearbox_reference_body>
       <axis>
