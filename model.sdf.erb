@@ -87,18 +87,6 @@
           <friction>0</friction>
         </dynamics>
       </axis>
-      <physics>
-        <ode>
-          <limit>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </limit>
-          <suspension>
-            <cfm>0</cfm>
-            <erp>0.2</erp>
-          </suspension>
-        </ode>
-      </physics>
     </joint>
     <joint name='output_joint' type='revolute'>
       <parent>motor_shaft</parent>
@@ -106,13 +94,13 @@
       <pose frame=''>0 0 0 0 -0 0</pose>
       <axis>
         <xyz><%= a_to_s(joint_axis) %></xyz>
-      </axis>
         <dynamics>
           <spring_reference>0</spring_reference>
           <spring_stiffness>0</spring_stiffness>
           <damping><%= joint_damping %></damping>
           <friction>0</friction>
         </dynamics>
+      </axis>
     </joint>
     <joint name='output_reduction' type='gearbox'>
       <parent>motor_shaft</parent>
